@@ -1,0 +1,10 @@
+{
+	"host":"localhost:8080",
+	"accept":"*/*",
+	"connection":"keep-alive",
+	"cookie":"connect.sid=s%3AZXbnrkQiUuOz1bC4gJ7nS0JwbVq6SGU_.S8NoidOPxAMrFSBWLjq50mP8HT6VGzJGvCHHYSafcnA; username-localhost-8888=\"2|1:0|10:1669578059|23:username-localhost-8888|44:ZWZlNWJhOGUxYmE3NDdmNTkwZTdiZmVmY2RkOTJlNjM=|b865213429534f3753256554b86a1519894d132e7179b4aab511dced717781a0\"; username-localhost-8889=\"2|1:0|10:1669025968|23:username-localhost-8889|44:NGViZmNkYTczNzdjNGNhZTlhMDAwOTM3MTY3NTdhNWY=|eb5bfd5595df88adb1ac59fe85e7608f96d7f85b03e5845862730d956bab9eab\"; _xsrf=2|82dbe620|d868cde597dc36691349649689fd4f8d|1669025221",
+	"user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15",
+	"accept-language":"en-GB,en;q=0.9",
+	"referer":"http://localhost:8080/requested",
+	"accept-encoding":"gzip, deflate"
+}

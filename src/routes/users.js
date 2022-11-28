@@ -3,6 +3,7 @@ import userService from '../services/userService.js'
 import email from '../services/email.js'
 import { v4 as uuidv4 } from 'uuid'
 import rateLimit from 'express-rate-limit'
+import { getCsrfToken } from '../middleware/antiCsrf.js'
 
 const rateLimitAuth = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -11,7 +12,6 @@ const rateLimitAuth = rateLimit({
 
 const routerUsers = express.Router()
 routerUsers.post('/api/login', rateLimitAuth, (req, res) => {
-    //const loginInfo = {... req.body};
     userService.userValidation({ ...req.body }).then((serviceResponse) => {
         if (serviceResponse && serviceResponse.status === 'approve') {
             //can store any other data from the db to the seasion
@@ -103,6 +103,11 @@ routerUsers.post('/api/users/notifications', (req, res) => {
     userService
         .saveNotification(req.body.roomId, req.body.type, req.body.receiverId)
         .then((result) => res.send(result))
+})
+
+routerUsers.get('/api/csrf-token', (req, res) => {
+	const token = getCsrfToken(req.session.userId);
+	res.json({csrfToken: token});
 })
 
 export default routerUsers
