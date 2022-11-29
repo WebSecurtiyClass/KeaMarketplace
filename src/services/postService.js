@@ -55,7 +55,7 @@ export function createPost(userId, post) {
 
 export async function updatePost(userId, postDetails, postToUpdateId) {
     const post = await getPostByIdForUsers(postId)
-    if (!post.userId === userId) return false
+    if (!post.user === userId) return false
     else {
         updatePostByUser(postToUpdateId, { post, ...postDetails })
         return true
@@ -66,7 +66,7 @@ export async function deletePostService(postId, userId, userRole) {
     // checks if user has created this post
     if (userRole !== USER_ROLE.ADMIN) {
         const post = await getPostByIdForUsers(postId)
-        if (!post.userId === userId) return false
+        if (!post.user === userId) return false
         await updatePostByUser(postId, { state: POST_STATE.ARCHIVED })
         return true
     } else {
