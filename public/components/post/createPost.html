@@ -1,6 +1,6 @@
 <div class="create-post">
     <form action="/api/post" method="POST">
-
+				<input type="hidden" name="csrfToken" id="csrfToken" value="">
         <label for="title">Title:</label>
         <br>
         <input type="text" name="title" placeholder="title" required>
@@ -28,3 +28,13 @@
         <input type="submit" value="Submit">
     </form>
 </div>
+
+<script>
+
+	fetch('/api/csrf-token')
+		.then((res) => res.json())
+		.then((userInfo) => {
+				document.getElementById("csrfToken").value = userInfo.csrfToken;
+		})
+
+</script>
