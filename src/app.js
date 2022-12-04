@@ -13,9 +13,9 @@ import routerStaticAuth from './routes/staticAutorized.js'
 import * as dotenv from 'dotenv'
 import morgan from 'morgan'
 import { CSRFGuard } from './middleware/antiCsrf.js'
+import helmet from 'helmet';
 
 dotenv.config()
-
 const app = express()
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
@@ -24,6 +24,19 @@ app.use(express.static('public'))
 app.use(createSession())
 app.use(morganMiddleware)
 app.use(CSRFGuard)
+app.use(helmet({
+    contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+            'connect-src': ['self', 'localhost:3000', 'https://*.fontawesome.com'],
+            'default-src': ['localhost:3000', 'https://*.fontawesome.com'],
+            'script-src': ['self', 'localhost:3000', 'https://*.fontawesome.com/'],
+            'img-src': ['self', 'localhost:3000'],
+            'font-src': ['self', 'localhost:3000', 'https://*.fontawesome.com'],
+        },
+    },
+}));
+app.use(helmet.xssFilter());
 app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
@@ -31,6 +44,8 @@ app.use(routerStatic)
 app.use(routerStaticAuth)
 
 const server = http.createServer(app)
+server.headersTimeout = 5000
+server.requestTimeout = 10000
 //const io = new Server(server)
 
 //io.on('connection', (_socket) => {
