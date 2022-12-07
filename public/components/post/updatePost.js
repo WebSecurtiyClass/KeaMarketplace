@@ -6,11 +6,11 @@ document
 fetch(`/api/post/me/${postId}`)
     .then((response) => response.json())
     .then((res) => {
-        document.getElementById('title').setAttribute('value', res.title)
-        document.getElementById('description').defaultValue = res.description
-        document.getElementById('location').defaultValue = res.location
-        document.getElementById('price').defaultValue = res.price
-        document.getElementById('type').defaultValue = res.type
+        document.getElementById('title').value = res.title
+        document.getElementById('description').value = res.description
+        document.getElementById('location').value = res.location
+        document.getElementById('price').value = res.price
+        document.getElementById('type').value = res.type
     })
     .catch((err) => {
         console.log('Error: ', err)
@@ -32,5 +32,5 @@ function submitForm(e) {
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
-    }).then((response) => console.log(response))
+    }).then((response) => response)
 }

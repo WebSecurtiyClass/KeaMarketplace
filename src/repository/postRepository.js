@@ -91,7 +91,6 @@ export function createPostByUser(post) {
 
 //Update one post
 export function updatePostByUser(id, updates) {
-    console.log(updates)
     return prisma.posts.update({
         where: {
             id: id,
