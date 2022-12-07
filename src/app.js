@@ -10,6 +10,7 @@ import * as dotenv from 'dotenv'
 import morgan from 'morgan'
 import { CSRFGuard } from './middleware/antiCsrf.js'
 import helmet from 'helmet'
+import * as bodyParser from 'express'
 
 dotenv.config()
 
@@ -17,6 +18,11 @@ const app = express()
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+)
 app.use(helmet())
 app.use(express.static('public'))
 app.use(createSession())

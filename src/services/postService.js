@@ -54,10 +54,11 @@ export function createPost(userId, post) {
 }
 
 export async function updatePost(userId, postDetails, postToUpdateId) {
-    const post = await getPostByIdForUsers(postId)
-    if (!post.user === userId) return false
-    else {
-        updatePostByUser(postToUpdateId, { post, ...postDetails })
+    const post = await getPostByIdForUsers(postToUpdateId)
+    if (!post.user === userId) {
+        return false
+    } else {
+        await updatePostByUser(postToUpdateId, { ...postDetails })
         return true
     }
 }

@@ -44,6 +44,14 @@ routerPosts.all('/api/post/*', (req, res, next) => {
     }
 })
 
+routerPosts.get('/api/post/me/:id', async (req, res) => {
+    const post = await getPostById(
+        req.params.id,
+        userRoleMapper(req.session.role)
+    )
+    req.session.userId === post.user ? res.send(post) : res.sendStatus(404)
+})
+
 routerPosts.get('/api/post/:id', (req, res) => {
     getPostById(req.params.id, userRoleMapper(req.session.role))
         .then((post) => {
@@ -65,7 +73,7 @@ routerPosts.post('/api/post', (req, res) => {
 })
 
 routerPosts.patch('/api/post/:id', (req, res) => {
-    updatePost(req.session.userId, req.body, req.query.id).then((response) => {
+    updatePost(req.session.userId, req.body, req.params.id).then((response) => {
         response ? res.redirect('/') : res.sendStatus(401)
     })
 })

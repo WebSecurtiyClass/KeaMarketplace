@@ -9,6 +9,7 @@ import {
     viewPost,
     chatList,
     pageNotFound,
+    updatePost,
 } from '../static-pages/staticPages.js'
 
 function title(titleName) {
@@ -47,6 +48,17 @@ routerStaticAuth.get('/posts/:id', (req, res) => {
 
 routerStaticAuth.get('/createPost', (req, res) => {
     res.send(CSS + title('H2H - New Post') + navbar + createPost + FOOTER)
+})
+
+routerStaticAuth.get('/updatePost/:id', (req, res) => {
+    res.send(
+        CSS +
+            title('H2H - Update Post') +
+            navbar +
+            createPost +
+            updatePost +
+            FOOTER
+    )
 })
 
 routerStaticAuth.get('/chats', (req, res) => {
