@@ -105,9 +105,10 @@ routerUsers.post('/api/users/notifications', (req, res) => {
         .then((result) => res.send(result))
 })
 
-routerUsers.get('/api/csrf-token', (req, res) => {
-	const token = getCsrfToken(req.session.userId);
-	res.json({csrfToken: token});
+routerUsers.get('/api/csrf-token', async (req, res) => {
+    console.log(`req.session.userId ${req.session.userId}`)
+    const token = await getCsrfToken(req.session.userId)
+    res.json({ csrfToken: token })
 })
 
 export default routerUsers

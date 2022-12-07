@@ -1,17 +1,18 @@
 <!--<script src="/socket.io/socket.io.js"></script>-->
+
 </head>
 <body>
     
     <div id="navbar">
-        <a class="home selected" href="/"><img src="../assets/pictures/H2H_logo.png" width="100" height="auto"></a>
+        <a class="home selected" href="/"><img alt='logo' src="../assets/pictures/H2H_logo.png" width="100" height="auto"></a>
         <a href="/provided">Provided services</a>
         <a href="/requested">Requested services</a>
         <a href="/createPost">Post an ad</a>
         <div id="search">
             <input  id="search-input" type="text" name="search" placeholder="Search...">
-            <input type="submit" value="Search" onclick="search()">
+            <input type="submit" value="Search"  id="search-btn">
         </div>
-        <a id="profile" onclick="openSidenav()">Profile</a>
+        <a class='profile-btn' id='profile-btn' >Profile</a>
     </div>
     <div class="sidenav" id="profileNavbar">
         <!-- <a>Profile</a> not implemented yet-->
@@ -21,6 +22,6 @@
     </div>
     <script src="../templates/navbar/profileNavbar/profileNavbar.js"></script>
     <script src="../templates/navbar/search.js"></script>
-    
+
     <div class="content">
-    
+

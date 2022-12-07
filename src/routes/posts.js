@@ -19,18 +19,21 @@ routerPosts.get('/api/posts', async (req, res) => {
         await getAllPosts(userRole).then((posts) => {
             res.send({ posts })
         })
-    if (req.query.type)
+    else if (req.query.type)
         await getAllPostsByType(req.query.type, userRole).then((posts) =>
             res.send({ posts })
         )
-    if (req.query.user)
+    else if (req.query.user)
         await getAllPostsByUser(req.session.userId, userRole).then((result) =>
             res.send({ posts: result })
         )
-    if (req.query.post)
+    else if (req.query.post)
         await getAllPostsBySearch(req.query.post).then((result) =>
             res.send({ posts: result })
         )
+    else {
+        res.sendStatus(404)
+    }
 })
 
 routerPosts.all('/api/post/*', (req, res, next) => {

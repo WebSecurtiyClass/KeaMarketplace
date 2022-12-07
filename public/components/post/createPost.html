@@ -3,26 +3,26 @@
 				<input type="hidden" name="csrfToken" id="csrfToken" value="">
         <label for="title">Title:</label>
         <br>
-        <input type="text" name="title" placeholder="title" required>
-        
-        
-        <select name="type">
+        <input type="text" id='title' name="title" placeholder="title" required>
+
+        <label for='type'></label>
+        <select name="type" id='type'>
             <option value="offer">Offer service</option>
             <option value="find">Find service</option>
         </select>
         <br>
 
-        <label for="location">Location: </label>
-        <input type="text" name="location" placeholder="location" required>
+        <label for="location" >Location: </label>
+        <input type="text" id='location' name="location" placeholder="location" required>
         <br>
 
-        <label for="description"> Description:</label>
-        <textarea name="description" placeholder="description" rows="7" cols="65" required></textarea>
+        <label for="description" > Description:</label>
+        <textarea name="description" id='description' placeholder="description" rows="7" cols="65" required></textarea>
         <br>
 
         <label for="price">Price:</label>
         <br>
-        <input type="number" name="price" placeholder="price" required>
+        <input type="number" name="price" id='price' placeholder="price" required>
         <br>
         <br>
         <input type="submit" value="Submit">
@@ -34,7 +34,7 @@
 	fetch('/api/csrf-token')
 		.then((res) => res.json())
 		.then((userInfo) => {
-				document.getElementById("csrfToken").value = userInfo.csrfToken;
+            document.getElementById("csrfToken").value = userInfo.csrfToken;
 		})
 
 </script>

@@ -1,17 +1,18 @@
+
 <div class="create-post">
     <form action="/api/signup" method="POST">
-        <label for="firstName" >First name:</label>
-        <input type="text" id="firstName" name="firstName" placeholder="Your first name here..." required onchange="checkingInput()">
-        <label for="lastName">Last name:</label>
-        <input type="text" id="lastName" name="lastName" placeholder="Your last name here..." required onchange="checkingInput()">
+        <label for="first-name" >First name:</label>
+        <input class='input-signup-field' type="text" id="first-name" name="firstName" placeholder="Your first name here..." required >
+        <label for="last-name">Last name:</label>
+        <input class='input-signup-field' type="text" id="last-name" name="lastName" placeholder="Your last name here..." required>
         <label for="email">Email: </label>
-        <input type="email" id="email" name="email" placeholder="Your mail" required onchange="checkingInput()">
+        <input class='input-signup-field' type="email" id="email" name="email" placeholder="Your mail" required >
         <label for="password">Password: </label>
-        <input type="password" id="password" name="password" placeholder="Your pass" required minlength="8" onchange="checkingInput()">
+        <input class='input-signup-field' type="password" id="password" name="password" placeholder="Your pass" required minlength="8">
         <label for="re-password" minlength="8">Re-enter password:</label>
-        <input type="password" id="rePassword" placeholder="Your pass" required onchange="checkingInput()">
+        <input class='input-signup-field' type="password" id="re-password" placeholder="Your pass" required>
         <br/>
-        <input type="submit" value="Sign Up" id="signup-button" disabled="disabled">
+        <input class='input-signup-field' type="submit" value="Sign Up" id="signup-button" disabled="disabled">
     </form>
 </div>
 <script src="./components/signup/signup.js"></script>
