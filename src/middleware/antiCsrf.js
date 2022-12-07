@@ -1,17 +1,13 @@
 import crypto from 'crypto-js'
 
 export const getCsrfToken = (userId) => {
-    const token = crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString()
-    console.log(`token: ${token}`)
-    return token
+    return crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString()
 }
 
 const decryptToken = (token) => {
-    const decrypted = crypto.AES.decrypt(
-        token,
-        process.env.CSRF_SECRET
-    ).toString(crypto.enc.Utf8)
-    return decrypted
+    return crypto.AES.decrypt(token, process.env.CSRF_SECRET).toString(
+        crypto.enc.Utf8
+    )
 }
 
 const compareString = (a, b) => {

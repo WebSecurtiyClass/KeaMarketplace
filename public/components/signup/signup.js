@@ -10,7 +10,6 @@ const passwordRegex = new RegExp(
     '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$'
 )
 
-console.log(email)
 firstName.addEventListener('keydown', checkingInput)
 lastName.addEventListener('keydown', checkingInput)
 email.addEventListener('keydown', checkingInput)
