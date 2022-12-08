@@ -42,7 +42,7 @@ body {
 }
 
 
-#profile {
+.profile-btn {
     float: right;
     margin-right: 2rem;
     cursor: pointer;

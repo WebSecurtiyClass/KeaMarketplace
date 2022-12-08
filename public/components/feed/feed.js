@@ -1,6 +1,3 @@
-const findDiv = document.getElementById('finds')
-const offerDiv = document.getElementById('offers')
-
 let pageTitle = window.location.pathname.split('/') //get the path from the url
 
 let endPoint
@@ -28,8 +25,9 @@ switch (
 fetch(endPoint)
     .then((res) => res.json())
     .then((feed) => {
+        const findDiv = document.getElementById('finds')
+        const offerDiv = document.getElementById('offers')
         feed = feed.posts
-
         //for every post we create the html structure
         if (feed.length === 0) {
             alert(
@@ -37,11 +35,11 @@ fetch(endPoint)
             )
         }
         //load the posts from the fetch request
-        feed.forEach((post) =>
+        feed.forEach((post) => {
             post.type === 'find'
                 ? findDiv.appendChild(createPostCard(post))
                 : offerDiv.appendChild(createPostCard(post))
-        )
+        })
     })
 
 //this general method will be used on createPostCard, takes tag name("div/h1/...") a the call we would like to give to the content itself

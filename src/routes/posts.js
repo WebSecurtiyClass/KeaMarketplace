@@ -19,18 +19,21 @@ routerPosts.get('/api/posts', async (req, res) => {
         await getAllPosts(userRole).then((posts) => {
             res.send({ posts })
         })
-    if (req.query.type)
+    else if (req.query.type)
         await getAllPostsByType(req.query.type, userRole).then((posts) =>
             res.send({ posts })
         )
-    if (req.query.user)
+    else if (req.query.user)
         await getAllPostsByUser(req.session.userId, userRole).then((result) =>
             res.send({ posts: result })
         )
-    if (req.query.post)
+    else if (req.query.post)
         await getAllPostsBySearch(req.query.post).then((result) =>
             res.send({ posts: result })
         )
+    else {
+        res.sendStatus(404)
+    }
 })
 
 routerPosts.all('/api/post/*', (req, res, next) => {
@@ -39,6 +42,14 @@ routerPosts.all('/api/post/*', (req, res, next) => {
     } else {
         next()
     }
+})
+
+routerPosts.get('/api/post/me/:id', async (req, res) => {
+    const post = await getPostById(
+        req.params.id,
+        userRoleMapper(req.session.role)
+    )
+    req.session.userId === post.user ? res.send(post) : res.sendStatus(404)
 })
 
 routerPosts.get('/api/post/:id', (req, res) => {
@@ -62,7 +73,7 @@ routerPosts.post('/api/post', (req, res) => {
 })
 
 routerPosts.patch('/api/post/:id', (req, res) => {
-    updatePost(req.session.userId, req.body, req.query.id).then((response) => {
+    updatePost(req.session.userId, req.body, req.params.id).then((response) => {
         response ? res.redirect('/') : res.sendStatus(401)
     })
 })

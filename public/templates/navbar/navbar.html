@@ -1,16 +1,16 @@
-
 </head>
 <body>
     <div id="navbar">
 
-        <a class="home selected" href="/"><img src="./assets/pictures/H2H_logo.png" width="100" height="auto"></a>
+        <a class="home selected" href="/"><img alt='logo' src="./assets/pictures/H2H_logo.png" width="100" height="auto"></a>
         <a href="/provided">Provided services</a>
         <a href="/requested">Requested services</a>
         <div id="search">
+            <label for='search-input'></label>
             <input id="search-input" type="text" name="search" placeholder="Search...">
-            <input type="submit" value="Search" onclick="search()">
+            <input type="submit" value="Search" id='search-btn'>
         </div>
-        <a href="/login" id="profile">Log-in</a>
+        <a href="/login" id='profile-btn'>Log-in</a>
     </div>
     <div class="content">
-    <script src="../templates/navbar/search.js"></script>
+        <script src="../templates/navbar/search.js"></script>

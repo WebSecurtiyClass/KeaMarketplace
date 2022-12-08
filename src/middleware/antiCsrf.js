@@ -1,19 +1,19 @@
-import crypto from 'crypto-js';
+import crypto from 'crypto-js'
 
 export const getCsrfToken = (userId) => {
-	const token = crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString();
-	return token;
+    return crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString()
 }
 
 const decryptToken = (token) => {
-	const decrypted = crypto.AES.decrypt(token, process.env.CSRF_SECRET).toString(crypto.enc.Utf8);
-	return decrypted;
+    return crypto.AES.decrypt(token, process.env.CSRF_SECRET).toString(
+        crypto.enc.Utf8
+    )
 }
 
 const compareString = (a, b) => {
-	a = a.toUpperCase().trim();
-	b = b.toUpperCase().trim();
-	return a === b;
+    a = a.toUpperCase().trim()
+    b = b.toUpperCase().trim()
+    return a === b
 }
 
 /**
@@ -23,22 +23,23 @@ const compareString = (a, b) => {
  * - No post requests alter the application state unless a user is authenticated and has a valid session.
  */
 export const CSRFGuard = (req, res, next) => {
-	try {
-		if (req.method === 'POST' && req.session.userId) {
-			const { csrfToken } = req.body;
-			if(!csrfToken) {
-				throw new Error("Missing CSRF token!");
-			}
-			const csrfUserId = decryptToken(csrfToken);
-			
-			const sameSame = compareString(req.session.userId, csrfUserId);
-			if(!sameSame) {
-				throw new Error("CSRF token does not match!");
-			}
-			delete req.body.csrfToken
-		}
-		next();
-	} catch (err) {
-		res.status(401).send({message: err.message});
-	}
+    try {
+        if (req.method === 'POST' && req.session.userId) {
+            const { csrfToken } = req.body
+            if (!csrfToken) {
+                throw new Error('Missing CSRF token!')
+            }
+            const csrfUserId = decryptToken(csrfToken)
+
+            const sameSame = compareString(req.session.userId, csrfUserId)
+            if (!sameSame) {
+                throw new Error('CSRF token does not match!')
+            }
+            delete req.body.csrfToken
+        }
+        next()
+    } catch (err) {
+        console.error(err)
+        res.redirect('/404')
+    }
 }
