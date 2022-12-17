@@ -88,6 +88,7 @@ export const CSRFGuard = (req, res, next) => {
 				if(!fields.csrfToken){
 					throw new Error("Missing CSRF token");
 				}
+
 				const csrfUserId = decryptToken(fields.csrfToken);
 				const sameSame = compareString(req.session.userId, csrfUserId);
 				if(!sameSame) {
@@ -98,25 +99,26 @@ export const CSRFGuard = (req, res, next) => {
 			})
 			//console.log("req raw: ", req.rawData);
 			
+			next();
 		}
-		if ((req.method === 'POST' || req.method === 'PUT') && req.session.userId) {
-			//console.log("req: ", req);
-			//console.log("buffer: ", Buffer.from(req.buffer));
-			//console.log("csrf: " + JSON.stringify(req.body));
-			const { csrfToken } = req.body;
-			console.log("csrf: " + csrfToken);
-			if(!csrfToken) {
-				throw new Error("Missing CSRF token!");
-			}
-			const csrfUserId = decryptToken(csrfToken);
+		// if ((req.method === 'POST' || req.method === 'PUT') && req.session.userId) {
+		// 	//console.log("req: ", req);
+		// 	//console.log("buffer: ", Buffer.from(req.buffer));
+		// 	//console.log("csrf: " + JSON.stringify(req.body));
+		// 	//const { csrfToken } = req.body;
+		// 	console.log("csrf: " + csrfToken);
+		// 	if(!csrfToken) {
+		// 		throw new Error("Missing CSRF token!");
+		// 	}
+		// 	const csrfUserId = decryptToken(csrfToken);
 			
-			const sameSame = compareString(req.session.userId, csrfUserId);
-			if(!sameSame) {
-				throw new Error("CSRF token does not match!");
-			}
-			delete req.body.csrfToken
-		}
-		next();
+		// 	const sameSame = compareString(req.session.userId, csrfUserId);
+		// 	if(!sameSame) {
+		// 		throw new Error("CSRF token does not match!");
+		// 	}
+		// 	delete req.body.csrfToken
+		// }
+		// next();
 	} catch (err) {
 		res.status(401).send({message: err.message});
 	}
