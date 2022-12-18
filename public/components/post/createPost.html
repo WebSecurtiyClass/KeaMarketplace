@@ -1,5 +1,6 @@
 <div class="create-post">
-    <form action="/api/post" method="POST">
+	
+    <form action="/api/post" method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="csrfToken" id="csrfToken" value="">
         <label for="title">Title:</label>
         <br>
@@ -24,6 +25,9 @@
         <br>
         <input type="number" name="price" placeholder="price" required>
         <br>
+        <br>
+				<input type="file" name="file" placeholder="file">
+				<br>
         <br>
         <input type="submit" value="Submit">
     </form>

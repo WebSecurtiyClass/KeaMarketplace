@@ -48,6 +48,13 @@ fetch('/api/post/' + postId)
             postViewElement.appendChild(
                 createDivTag('h1', 'post-title', post.title)
             )
+						if(post.fileName){
+							const img = new Image(); // width, height
+							img.src = "../assets/post-images/"+post.fileName;
+							postViewElement.appendChild(
+								img
+							)
+						}
             postViewElement.appendChild(
                 createDivTag('div', 'post-description', post.description)
             )

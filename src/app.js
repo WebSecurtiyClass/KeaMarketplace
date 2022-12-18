@@ -1,7 +1,4 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
 import express from 'express'
-import fs from 'fs'
 import http from 'http'
 import { createSession } from './services/sessionService.js'
 //import { Server } from 'socket.io'

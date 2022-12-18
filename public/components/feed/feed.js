@@ -57,6 +57,13 @@ function createPostCard(post) {
     const cardDiv = createDivTag('a', 'post', '')
     cardDiv.appendChild(createDivTag('div', 'sticker-type', post.type))
     cardDiv.appendChild(createDivTag('h2', 'post-title', post.title))
+		if(post.fileName){
+			const img = new Image(100,100); // width, height
+			img.src = "../assets/post-images/"+post.fileName;
+			cardDiv.appendChild(
+				img
+			)
+		}
     cardDiv.appendChild(createDivTag('p', 'post-description', post.description))
     cardDiv.appendChild(
         createDivTag('div', 'post-price', 'price: ' + post.price + ' kr.')

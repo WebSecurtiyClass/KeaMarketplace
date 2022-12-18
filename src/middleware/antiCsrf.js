@@ -1,5 +1,4 @@
 import crypto from 'crypto-js';
-import querystring from 'querystring';
 import formidable from 'formidable';
 export const getCsrfToken = (userId) => {
 	const token = crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString();
