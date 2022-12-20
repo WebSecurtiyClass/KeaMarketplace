@@ -26,8 +26,18 @@ fetch('/api/post/' + postId)
                         'Delete Post',
                         'delete-post'
                     )
-                    deleteButton.setAttribute('onclick', 'deletePost()')
+                    deleteButton.addEventListener('click', deletePost)
                     postViewElement.appendChild(deleteButton)
+                    if (post.user === currentUser.id) {
+                        const updateButton = createDivTag(
+                            'button',
+                            'update-post',
+                            'Update Post',
+                            'update-post'
+                        )
+                        updateButton.addEventListener('click', updatePost)
+                        postViewElement.appendChild(updateButton)
+                    }
                 } else {
                     fetch('/api/users/' + post.user)
                         .then((res) => res.json())
@@ -79,4 +89,8 @@ function deletePost() {
     fetch('/api/post/' + postId, {
         method: 'DELETE',
     })
+}
+
+function updatePost() {
+    window.location.href = window.location.origin + '/updatePost/' + postId
 }

@@ -1,48 +1,43 @@
-import { Router } from "express";
+import { Router } from 'express'
 import {
-	cssTamplate,
-	footer,
-	profileNav,
-	nav,
-	feed,
-	login,
-	confirmLogin,
-	signup,
-	createPost,
-	chat,
-	viewPost,
-	chatList,
-	pageNotFound,
-	errorPage,
-	cookieModal,
-} from "../static-pages/staticPages.js";
+    cssTamplate,
+    footer,
+    profileNav,
+    nav,
+    feed,
+    login,
+    confirmLogin,
+    signup,
+		errorPage,
+    cookieModal,
+} from '../static-pages/staticPages.js'
 
 function title(titleName) {
-	if(titleName === null || titleName === undefined){
-		titleName = "H2H";
-	}
-	return `<title> ${titleName} </title>`
+    if (titleName === null || titleName === undefined) {
+        titleName = 'H2H'
+    }
+    return `<title> ${titleName} </title>`
 }
 
 // Instantiate constants CSS and FOOTER already loaded in staticPages.js
-const CSS = cssTamplate;
-const FOOTER = footer;
+const CSS = cssTamplate
+const FOOTER = footer
 
-const routerStatic = Router();
+const routerStatic = Router()
 
-let navbar;
+let navbar
 
-routerStatic.use(function(req, res, next) {
-	navbar = req.session.userId ? profileNav : nav;
-	if(!req.session.sawCookie){
-		navbar = navbar + cookieModal;
-		req.session.sawCookie = true;
-	}
-	return next()
-});
+routerStatic.use(function (req, res, next) {
+    navbar = req.session.userId ? profileNav : nav
+    if (!req.session.sawCookie) {
+        navbar = navbar + cookieModal
+        req.session.sawCookie = true
+    }
+    return next()
+})
 
 routerStatic.get('/', (req, res) => {
-	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
+    res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
 routerStatic.get('/error', (req, res) => {
@@ -50,57 +45,53 @@ routerStatic.get('/error', (req, res) => {
 })
 
 routerStatic.get('/requested', (req, res) => {
-	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
+    res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
 routerStatic.get('/provided', (req, res) => {
-	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
+    res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
 routerStatic.get('/search', (req, res) => {
-	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
+    res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
 routerStatic.get('/login', (req, res) => {
-	console.log("req sesison.userId: " +req.session.userId)
-	if (req.session.userId) {
-			res.redirect('/')
-	}
-	res.send(CSS + title('H2H - Login') + navbar + login + FOOTER)
+    if (req.session.userId) {
+        res.redirect('/')
+    }
+    res.send(CSS + title('H2H - Login') + navbar + login + FOOTER)
 })
 
 routerStatic.get('/confirm/:code', (req, res) => {
-	res.send(
-			CSS + title('H2H - Confirmation') + navbar + confirmLogin + FOOTER
-	)
+    res.send(CSS + title('H2H - Confirmation') + navbar + confirmLogin + FOOTER)
 })
 
 routerStatic.get('/signup', (req, res) => {
-	if (req.session.userId) {
-			res.redirect('/')
-	}
-	res.send(CSS + title('H2H - Signup') + navbar + signup + FOOTER)
+    if (req.session.userId) {
+        res.redirect('/')
+    }
+    res.send(CSS + title('H2H - Signup') + navbar + signup + FOOTER)
 })
 
 routerStatic.get('/signup/complete', (req, res) => {
-	res.send(
-			CSS +
-					title('H2H - Signup') +
-					navbar +
-					'<script>alert("Please check your email for complete the signup process");  window.location.href = "/"</script>' +
-					FOOTER
-	)
+    res.send(
+        CSS +
+            title('H2H - Signup') +
+            navbar +
+            '<script>alert("Please check your email for complete the signup process");  window.location.href = "/"</script>' +
+            FOOTER
+    )
 })
 
 routerStatic.get('/signup/failed', (req, res) => {
-	res.send(
-			CSS +
-					title('H2H - Signup') +
-					navbar +
-					'<script>alert("we could not complete your signup process please try again");  window.location.href = "/signup"</script>' +
-					FOOTER
-	)
+    res.send(
+        CSS +
+            title('H2H - Signup') +
+            navbar +
+            '<script>alert("we could not complete your signup process please try again");  window.location.href = "/signup"</script>' +
+            FOOTER
+    )
 })
 
-
-export default routerStatic;
+export default routerStatic

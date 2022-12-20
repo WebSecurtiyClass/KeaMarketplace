@@ -39,7 +39,7 @@ routerUsers.post('/api/signup', rateLimitAuth, (req, res) => {
 
     let checks = [
         // TODO: include in the end before hand-in
-        // passwordRegex.test(password.value),
+        passwordRegex.test(password.value),
         signUpInfo.firstName.length > 1,
         signUpInfo.lastName.length > 1,
         emailRegex.test(signUpInfo.email),
@@ -105,9 +105,9 @@ routerUsers.post('/api/users/notifications', (req, res) => {
         .then((result) => res.send(result))
 })
 
-routerUsers.get('/api/csrf-token', (req, res) => {
-	const token = getCsrfToken(req.session.userId);
-	res.json({csrfToken: token});
+routerUsers.get('/api/csrf-token', async (req, res) => {
+    const token = await getCsrfToken(req.session.userId)
+    res.json({ csrfToken: token })
 })
 
 export default routerUsers

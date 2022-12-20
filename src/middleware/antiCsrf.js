@@ -11,8 +11,6 @@ const decryptToken = (token) => {
 	return decrypted;
 }
 
-
-
 const compareString = (a, b) => {
 	a = a.toUpperCase().trim();
 	b = b.toUpperCase().trim();
@@ -61,7 +59,7 @@ export const CSRFGuard = async (req, res, next) => {
 			// csrf token has served it's purpose, no need to keep it in the req body.
 			delete req.body.csrfToken
 		}
-		
+
 		next();
 	} catch (err) {
 		console.log("Error caught in antiCSRF: ", err);

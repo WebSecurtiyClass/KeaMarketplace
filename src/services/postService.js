@@ -35,8 +35,8 @@ export function getAllPostsByUser(userId, userRole) {
 
 export function getAllPostsBySearch(searchKey, userRole) {
     return userRole === USER_ROLE.ADMIN
-        ? getAllPostsBySearchForAdmin
-        : getAllPostsBySearchForUsers
+        ? getAllPostsBySearchForAdmin(searchKey)
+        : getAllPostsBySearchForUsers(searchKey)
 }
 
 export function getPostById(postId, userRole) {
@@ -54,10 +54,11 @@ export function createPost(userId, post) {
 }
 
 export async function updatePost(userId, postDetails, postToUpdateId) {
-    const post = await getPostByIdForUsers(postId)
-    if (!post.userId === userId) return false
-    else {
-        updatePostByUser(postToUpdateId, { post, ...postDetails })
+    const post = await getPostByIdForUsers(postToUpdateId)
+    if (!post.user === userId) {
+        return false
+    } else {
+        await updatePostByUser(postToUpdateId, { ...postDetails })
         return true
     }
 }
@@ -66,7 +67,7 @@ export async function deletePostService(postId, userId, userRole) {
     // checks if user has created this post
     if (userRole !== USER_ROLE.ADMIN) {
         const post = await getPostByIdForUsers(postId)
-        if (!post.userId === userId) return false
+        if (!post.user === userId) return false
         await updatePostByUser(postId, { state: POST_STATE.ARCHIVED })
         return true
     } else {
