@@ -85,7 +85,7 @@ routerPosts.post('/api/post', (req, res) => {
 
 routerPosts.patch('/api/post/:id', (req, res) => {
     updatePost(req.session.userId, req.body, req.params.id).then((response) => {
-        response ? res.redirect('/') : res.sendStatus(401)
+        response ? res.json({message:"Success"}) : res.sendStatus(401)
     })
 })
 
