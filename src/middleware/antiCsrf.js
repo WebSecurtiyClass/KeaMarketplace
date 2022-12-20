@@ -42,11 +42,12 @@ ourAllowedLocationPaths.forEach(path => allowedLocations.push(ourLocation + path
 export const CSRFGuard = async (req, res, next) => {
 	try {
 		if ((req.method === 'POST' || req.method === 'PUT') && req.session.userId) {
-			const origin = req.headers.origin;
-			const referer = req.headers.referer;
-			if(!allowedLocations.includes(origin) || !allowedLocations.includes(referer)){
-				throw new Error("Invalid origin: " + origin + ", or invalid referer: " + referer);
-			}
+			// Last minute changes, Chrome does not send referer and origin on POST and PUT requests.
+			// const origin = req.headers.origin;
+			// const referer = req.headers.referer;
+			// if(!allowedLocations.includes(origin) || !allowedLocations.includes(referer)){
+			// 	throw new Error("Invalid origin: " + origin + ", or invalid referer: " + referer);
+			// }
 			const { csrfToken } = req.body;
 		 	if(!csrfToken) {
 		 		throw new Error("Missing CSRF token!");
