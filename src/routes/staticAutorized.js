@@ -8,6 +8,7 @@ import {
 	chat,
 	viewPost,
 	chatList,
+	pageNotFound
 } from "../static-pages/staticPages.js";
 
 function title(titleName) {

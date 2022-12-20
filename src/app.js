@@ -10,7 +10,7 @@ import routerStaticAuth from './routes/staticAutorized.js'
 import * as dotenv from 'dotenv'
 import morgan from 'morgan'
 import { CSRFGuard } from './middleware/antiCsrf.js'
-
+import {pictureUploadGuard} from './services/picture-service.js'
 dotenv.config()
 
 const app = express()
@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use(createSession())
 app.use(morganMiddleware)
+app.use(pictureUploadGuard)
 app.use(CSRFGuard)
 app.use(routerUsers)
 app.use(routerPosts)

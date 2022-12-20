@@ -10,7 +10,8 @@ import {
     getPostById,
 } from '../services/postService.js'
 import { userRoleMapper } from '../util/typeMapper.js'
-import { upload } from '../services/picture-service.js'
+import { deleteFile } from '../services/picture-service.js'
+import multer from 'multer'
 
 const routerPosts = express.Router()
 
@@ -53,24 +54,25 @@ routerPosts.get('/api/post/:id', (req, res) => {
 		})
 })
 
-routerPosts.post('/api/post', upload.single('file'), (req, res) => {
-	// should make a check that we are receiving only post things
-	console.log("filename :" + req.body.fileName)
-	console.log("req body in post :", req.body)
-	if(req.body.csrfToken){
-		delete req.body.csrfToken
+routerPosts.post('/api/post', (req, res) => {
+	try {
+		createPost(req.session.userId, req.body).then(() => {
+			//TODO: handle response
+			//res.send(post) //maybe should return a json object and the redirect will happen from the public folder
+			res.redirect('/')
+		})
+	} catch (e) {
+		console.log("Error creating post: " + e.message)
+		// Most likely a post will have included a file, in which case we want to delete it since posting failed.
+		if(req.file){
+			deleteFile(req.file)
+		}
+		res.redirect('/error')
 	}
-	createPost(req.session.userId, req.body).then(() => {
-		//TODO: handle response
-		//res.send(post) //maybe should return a json object and the redirect will happen from the public folder
-		res.redirect('/')
-	})
+
 })
 
-routerPosts.patch('/api/post/:id', upload.single('file'), (req, res) => {
-	if(req.body.csrfToken){
-		delete req.body.csrfToken
-	}
+routerPosts.patch('/api/post/:id', (req, res) => {
 	updatePost(req.session.userId, req.body, req.query.id).then((response) => {
 		response ? res.redirect('/') : res.sendStatus(401)
 	})
@@ -87,5 +89,16 @@ routerPosts.delete('/api/post/:id', async (req, res) => {
 	)
 	deletePost ? res.redirect('/') : res.redirect('/resourceNotFound')
 })
+
+routerPosts.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    // A Multer error occurred when handling the file upload
+    return res.redirect('/error');
+  } else {
+    // Handle other errors
+		return res.redirect('/error');
+    //next(err);
+  }
+});
 
 export default routerPosts
