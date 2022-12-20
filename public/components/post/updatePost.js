@@ -1,5 +1,11 @@
 const postId = window.location.pathname.split('/updatePost/')[1] //get the post id from the url
 
+fetch('/api/csrf-token')
+    .then((res) => res.json())
+    .then((userInfo) => {
+        document.getElementById('csrfToken').value = userInfo.csrfToken
+    })
+
 document
     .getElementById('form-post-submit')
     .addEventListener('click', submitForm)
