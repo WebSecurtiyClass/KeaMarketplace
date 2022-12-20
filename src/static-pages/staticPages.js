@@ -25,6 +25,11 @@ const profileNav = fs.readFileSync(
     'utf-8'
 )
 
+const errorPage = fs.readFileSync(
+	__dirname + '/public/components/errors/errorPage.html',
+	'utf-8'
+)
+
 const nav = fs.readFileSync(
     __dirname + '/public/templates/navbar/navbar.html',
     'utf-8'
@@ -93,4 +98,5 @@ export {
     pageNotFound,
     cookieModal,
     updatePost,
+		errorPage
 }

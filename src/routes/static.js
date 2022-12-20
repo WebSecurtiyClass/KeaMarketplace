@@ -8,6 +8,7 @@ import {
     login,
     confirmLogin,
     signup,
+		errorPage,
     cookieModal,
 } from '../static-pages/staticPages.js'
 
@@ -37,6 +38,10 @@ routerStatic.use(function (req, res, next) {
 
 routerStatic.get('/', (req, res) => {
     res.send(CSS + title('H2H') + navbar + feed + FOOTER)
+})
+
+routerStatic.get('/error', (req, res) => {
+	res.send(CSS + title('H2H') + navbar + errorPage + FOOTER)
 })
 
 routerStatic.get('/requested', (req, res) => {

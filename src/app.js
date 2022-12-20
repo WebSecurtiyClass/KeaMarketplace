@@ -11,7 +11,7 @@ import morgan from 'morgan'
 import { CSRFGuard } from './middleware/antiCsrf.js'
 import helmet from 'helmet'
 import * as bodyParser from 'express'
-
+import {pictureUploadGuard} from './services/picture-service.js'
 dotenv.config()
 
 const app = express()
@@ -27,6 +27,7 @@ app.use(helmet())
 app.use(express.static('public'))
 app.use(createSession())
 app.use(morganMiddleware)
+app.use(pictureUploadGuard)
 app.use(CSRFGuard)
 app.use(routerUsers)
 app.use(routerPosts)

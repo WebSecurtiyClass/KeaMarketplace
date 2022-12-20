@@ -33,6 +33,7 @@ model posts {
   type        String
   user        String
   state       State            @default(PUBLISHED)
+	fileName 		String?
 }
 
 model session {
