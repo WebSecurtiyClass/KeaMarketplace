@@ -2,7 +2,6 @@ import express from 'express'
 import {
     deletePostService,
     getAllPosts,
-    getAllPostsBySearch,
     getAllPostsByType,
     getAllPostsByUser,
     updatePost,
