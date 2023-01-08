@@ -1,4 +1,4 @@
-import passwordManagement from '../../passwordManagement.js'
+import { compareHash, passwordToHash } from '../../passwordManagement.js'
 import {
     approveUser,
     createUser,
@@ -16,24 +16,26 @@ async function userValidation(query) {
         return false
     }
     //compare the query password with the hashed db password
-    return passwordManagement.compareHash(query.password, user.password)
-        ? user
-        : false
+    return compareHash(query.password, user.password) ? user : false
 }
 
 async function signUp(signUpInfo) {
     let isCreated = false
-    await getUserByMail(signUpInfo.email).then(async (user) => {
-        if (!user) {
-            //checks if there is no user with this mail in the db
-            signUpInfo.password = await passwordManagement.passwordToHash(
-                signUpInfo.password
-            )
-            signUpInfo.notifications = []
-            createUser(signUpInfo)
-            isCreated = true
-        }
-    })
+    await getUserByMail(signUpInfo.email)
+        .then(async (user) => {
+            if (!user) {
+                //checks if there is no user with this mail in the db
+                signUpInfo.password = await passwordToHash(signUpInfo.password)
+                signUpInfo.notifications = []
+                createUser(signUpInfo)
+                    .then((res) => console.log('success: ', res))
+                    .catch((e) => console.log('error: ', e))
+                isCreated = true
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     return isCreated
 }
 

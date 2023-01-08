@@ -25,15 +25,5 @@ function triggerNotifications() {
                 })
                 window.history.pushState(user.notifications, 'notification')
             }
-
-            // socket.emit('triggerNotifications', user);
         })
 }
-
-// socket.on("newNotification", roomId => {
-//     //When you get a new notification
-//     //The chat href in the UI should light up
-//     document.getElementById("chats").classList.add("has-notification");
-//     document.getElementById("profile").classList.add("has-notification");
-//     //Potentially, it should show you which room the notification is for
-// });

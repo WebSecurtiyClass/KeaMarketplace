@@ -2,16 +2,15 @@
     <form action="/api/confirm" method="POST">
         <h3>to confirm your email please fill this information</h3>
         <label for="email">Email: </label>
-        <input type="email" name="email" required>
-        <label for="password">Password:</label>
+        <input type="email" id='email' name="email" required>
+        <label for="password" id='password'>Password:</label>
         <input type="password" name="password" required>
         <input type="text" name="code"  id="url-code" hidden>
         <br/>
         <input type="submit" value="Log in">
         <a href="/signup">sign-up</a>
     </form>
+
 </div>
 
-<script>
-    document.getElementById("url-code").value = window.location.pathname.split('/confirm/')[1];
-</script>
+<script src='../components/login/confirmLogin.js'></script>
