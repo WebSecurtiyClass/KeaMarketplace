@@ -1,6 +1,6 @@
 import xss from 'xss'
 
-export function preventXss(req, res, next) {
+export const preventXss = (req, res, next) => {
     Object.entries(req.body).forEach(([key, _value]) => {
         req.body[key] = xss(req.body[key])
     })

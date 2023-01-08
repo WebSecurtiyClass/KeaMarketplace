@@ -38,8 +38,11 @@ function submitForm(e) {
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
-    }).then((response) => response.json()).then((result) => {
-				console.log("result: ", result);
-				result.message === "Success" ? window.location.replace('/') : window.location.replace('/error')
-			})
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            result.message === 'Success'
+                ? window.location.replace('/')
+                : window.location.replace('/error')
+        })
 }

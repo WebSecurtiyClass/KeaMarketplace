@@ -1,6 +1,6 @@
 import express from 'express'
 import http from 'http'
-import { createSession } from './services/sessionService.js'
+import { createSession } from './middleware/sessionService.js'
 import routerPosts from './routes/posts.js'
 import routerUsers from './routes/users.js'
 import routerChats from './routes/chats.js'
@@ -29,9 +29,9 @@ app.use(helmet())
 app.use(express.static('public'))
 app.use(createSession())
 app.use(morganMiddleware)
-app.use(preventXss)
 app.use(pictureUploadGuard)
 app.use(CSRFGuard)
+app.use(preventXss)
 app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
