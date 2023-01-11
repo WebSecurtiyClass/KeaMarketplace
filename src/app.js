@@ -17,6 +17,9 @@ import { preventXss } from './middleware/anitXss.js'
 dotenv.config()
 
 const app = express()
+app.get('/healthz', (req, res) => {
+    res.sendStatus(200)
+})
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
