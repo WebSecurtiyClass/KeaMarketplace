@@ -12,6 +12,8 @@ const rateLimitAuth = rateLimit({
 
 const routerUsers = express.Router()
 routerUsers.post('/api/login', rateLimitAuth, (req, res) => {
+    const ipAddress = req.socket.remoteAddress;
+    console.log(ipAddress)
     userService.userValidation({ ...req.body }).then((serviceResponse) => {
         if (serviceResponse && serviceResponse.status === 'approve') {
             //can store any other data from the db to the seasion
