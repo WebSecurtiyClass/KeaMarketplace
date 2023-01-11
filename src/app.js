@@ -17,9 +17,6 @@ import { preventXss } from './middleware/anitXss.js'
 dotenv.config()
 
 const app = express()
-app.get('/healthz', (req, res) => {
-    res.sendStatus(200)
-})
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -32,6 +29,9 @@ app.use(helmet())
 app.use(express.static('public'))
 app.use(createSession())
 app.use(morganMiddleware)
+app.get('/healthz', (req, res) => {
+    res.sendStatus(200)
+})
 app.use(pictureUploadGuard)
 app.use(CSRFGuard)
 app.use(preventXss)
