@@ -5,7 +5,7 @@ dotenv.config()
 
 const MongoClient = mongodb.MongoClient
 const url = process.env.DB_CONNECTION
-const dbName = 'NodeExam'
+const dbName = process.env.DB_NAME
 
 let db
 export const prisma = new PrismaClient()
