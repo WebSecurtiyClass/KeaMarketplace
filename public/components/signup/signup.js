@@ -26,6 +26,7 @@ function checkingInput() {
         password.value === rePassword.value,
         password.value.length > 7,
     ]
+    console.log(checks)
     !checks.includes(false)
         ? (button.disabled = false)
         : (button.disabled = true)

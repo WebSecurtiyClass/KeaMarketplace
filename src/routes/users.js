@@ -56,9 +56,10 @@ routerUsers.post('/api/signup', rateLimitAuth, (req, res) => {
         res.redirect('/signup/failed')
     }
     if (!checks.includes(false)) {
-        email.emailConfirmation(req, confirmationCode)
         userService.signUp(signUpInfo).then((result) => {
+            console.log(result)
             if (result) {
+                email.emailConfirmation(req, confirmationCode)
                 res.redirect('/signup/complete')
             } else {
                 res.redirect('/signup/failed')

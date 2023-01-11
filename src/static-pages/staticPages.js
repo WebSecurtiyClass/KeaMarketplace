@@ -26,8 +26,8 @@ const profileNav = fs.readFileSync(
 )
 
 const errorPage = fs.readFileSync(
-	__dirname + '/public/components/errors/errorPage.html',
-	'utf-8'
+    __dirname + '/public/components/errors/errorPage.html',
+    'utf-8'
 )
 
 const nav = fs.readFileSync(
@@ -73,6 +73,14 @@ const chatList = fs.readFileSync(
     __dirname + '/public/components/chatList/chatList.html',
     'utf-8'
 )
+const failedSignup = fs.readFileSync(
+    __dirname + '/public/components/signup/failed/signup-failed.html',
+    'utf-8'
+)
+const completeSignup = fs.readFileSync(
+    __dirname + '/public/components/signup/complete/signup-complete.html',
+    'utf-8'
+)
 const pageNotFound = fs.readFileSync(
     __dirname + '/public/components/pageNotFound/pageNotFound.html',
     'utf-8'
@@ -89,6 +97,7 @@ export {
     nav,
     feed,
     login,
+    completeSignup,
     confirmLogin,
     signup,
     createPost,
@@ -96,7 +105,8 @@ export {
     viewPost,
     chatList,
     pageNotFound,
+    failedSignup,
     cookieModal,
     updatePost,
-		errorPage
+    errorPage,
 }
