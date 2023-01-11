@@ -65,13 +65,13 @@ export async function updatePost(userId, postDetails, postToUpdateId) {
 
 export async function deletePostService(postId, userId, userRole) {
     // checks if user has created this post
-    if (userRole !== USER_ROLE.ADMIN) {
+    if (userRole === USER_ROLE.ADMIN) {
+        await deletePost(postId)
+        return true
+    } else {
         const post = await getPostByIdForUsers(postId)
         if (!post.user === userId) return false
         await updatePostByUser(postId, { state: POST_STATE.ARCHIVED })
-        return true
-    } else {
-        await deletePost(postId)
         return true
     }
 }

@@ -35,10 +35,18 @@ export function removeNotification(userId, notification) {
 }
 
 export function approveUser(userId) {
-    prisma.users.update({
-        where: { id: userId },
-        data: {
-            status: 'approve',
-        },
-    })
+    prisma.users
+        .update({
+            where: { id: userId },
+            data: {
+                status: 'approve',
+            },
+        })
+        .then((result) => {
+            console.log(result)
+            return result
+        })
+        .catch((e) => {
+            console.log(e)
+        })
 }
