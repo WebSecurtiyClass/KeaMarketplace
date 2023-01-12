@@ -9,6 +9,7 @@
     "@prisma/client": "^4.5.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
     "cross-env": "7.0.3",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon src/app.js",
-    "start": "snyk test && node src/app.js",
+    "start": "snyk test && nodemon src/app.js",
     "generate-prisma": "npx prisma generate"
   },
   "engines": {

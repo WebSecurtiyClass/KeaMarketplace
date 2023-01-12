@@ -12,10 +12,13 @@ import helmet from 'helmet'
 import * as bodyParser from 'express'
 import { pictureUploadGuard } from './services/picture-service.js'
 import { preventXss } from './middleware/anitXss.js'
+import cors from 'cors';
+import victimRouter from './routes/victim.js'
 
 dotenv.config()
 
 const app = express()
+//app.use(cors())
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -33,11 +36,13 @@ app.get('/healthz', (req, res) => {
 app.use(createSession())
 app.use(pictureUploadGuard)
 app.use(CSRFGuard)
-app.use(preventXss)
+//app.use(preventXss)
+app.use(victimRouter)
 app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerStatic)
 app.use(routerStaticAuth)
+
 
 const server = http.createServer(app)
 server.headersTimeout = 5000

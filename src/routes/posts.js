@@ -68,6 +68,7 @@ routerPosts.get('/api/post/:id', (req, res) => {
 routerPosts.post('/api/post', (req, res) => {
     try {
         console.log('api/post: ', req.body)
+				console.log("req.session:", req.session)
 				if(!req.session.userId){
 					res.redirect('/error')
 					return;

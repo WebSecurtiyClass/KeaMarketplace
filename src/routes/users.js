@@ -12,15 +12,16 @@ const rateLimitAuth = rateLimit({
 
 const routerUsers = express.Router()
 routerUsers.post('/api/login', rateLimitAuth, (req, res) => {
-    const ipAddress = req.socket.remoteAddress
-    console.log(ipAddress)
+	console.log("login: ", req.body);
     userService.userValidation({ ...req.body }).then((serviceResponse) => {
         if (serviceResponse && serviceResponse.status === 'approve') {
             //can store any other data from the db to the seasion
             req.session.userId = serviceResponse.id
             req.session.role = serviceResponse.role
+						console.log("Successfully logged in: ", req.session)
             res.redirect('/')
         } else {
+					console.log("Not successful login: ", serviceResponse)
             res.redirect('/login')
         }
     })
@@ -88,7 +89,7 @@ routerUsers.post('/api/confirm', (req, res) => {
 })
 
 routerUsers.all('/api/users/*', (req, res, next) => {
-    console.log(req.session)
+    //console.log(req.session)
     if (!req.session.userId) {
         res.sendStatus(401)
     } else {
