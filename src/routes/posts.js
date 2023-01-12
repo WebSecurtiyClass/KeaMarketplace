@@ -102,7 +102,7 @@ routerPosts.delete('/api/post/:id', async (req, res) => {
         req.session.userId,
         req.session.role
     )
-    deletePost ? res.redirect('/') : res.redirect('/resourceNotFound')
+    deletePost ? res.sendStatus(200) : res.redirect('/resourceNotFound')
 })
 
 routerPosts.use((err, req, res, _next) => {

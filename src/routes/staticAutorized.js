@@ -5,9 +5,7 @@ import {
     profileNav,
     feed,
     createPost,
-    chat,
     viewPost,
-    chatList,
     pageNotFound,
     updatePost,
 } from '../static-pages/staticPages.js'
@@ -59,14 +57,6 @@ routerStaticAuth.get('/updatePost/:id', (req, res) => {
             updatePost +
             FOOTER
     )
-})
-
-routerStaticAuth.get('/chats', (req, res) => {
-    res.send(CSS + title('H2H - Messages') + navbar + chatList + FOOTER)
-})
-
-routerStaticAuth.get('/chats/:id', (req, res) => {
-    res.send(CSS + title('H2H - Messages') + navbar + chat + FOOTER)
 })
 
 //get for all the other pages

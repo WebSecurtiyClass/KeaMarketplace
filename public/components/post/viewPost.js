@@ -44,13 +44,6 @@ fetch('/api/post/' + postId)
                         .then((userInfo) => {
                             userInfo = userInfo.user
                             user = userInfo.firstName + ' ' + userInfo.lastName
-                            const chatLink = createDivTag(
-                                'a',
-                                'post-user',
-                                'Send a message to: ' + user
-                            )
-                            chatLink.href = '/chats/' + post.user
-                            postViewElement.appendChild(chatLink)
                         })
                 }
             })
@@ -88,7 +81,11 @@ function createDivTag(tag, className, content, id) {
 function deletePost() {
     fetch('/api/post/' + postId, {
         method: 'DELETE',
-    })
+    }).then((res) => {
+			window.location.href=window.location.origin
+		}).catch((err) => {
+			window.location.href=window.location.origin + "/404"
+		});
 }
 
 function updatePost() {

@@ -1,21 +1,3 @@
-CHATS: 
-    get
-        /api/chats - {
-                        chats : [ all rooms that the user is part of ]
-                        userId : logged in user in the session    
-                    }
-
-        /api/chats/:recieverId- {
-                        id : room id
-                        chatlog : [all the messages inside this room]
-                        users: [members of the room]
-        }
-
-    post
-        /api/chats/:roomId - 
-                        add a message to the chat log of roomId
-
-
 POST: 
     get
         /api/posts - {

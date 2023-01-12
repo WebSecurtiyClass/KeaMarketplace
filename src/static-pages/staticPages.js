@@ -61,18 +61,11 @@ const updatePost = fs.readFileSync(
     'utf-8'
 )
 
-const chat = fs.readFileSync(
-    __dirname + '/public/components/chat/chat.html',
-    'utf-8'
-)
 const viewPost = fs.readFileSync(
     __dirname + '/public/components/post/viewPost.html',
     'utf-8'
 )
-const chatList = fs.readFileSync(
-    __dirname + '/public/components/chatList/chatList.html',
-    'utf-8'
-)
+
 const failedSignup = fs.readFileSync(
     __dirname + '/public/components/signup/failed/signup-failed.html',
     'utf-8'
@@ -101,9 +94,7 @@ export {
     confirmLogin,
     signup,
     createPost,
-    chat,
     viewPost,
-    chatList,
     pageNotFound,
     failedSignup,
     cookieModal,
