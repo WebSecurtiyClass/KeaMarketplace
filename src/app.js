@@ -35,7 +35,7 @@ app.get('/healthz', (req, res) => {
 })
 app.use(createSession())
 app.use(pictureUploadGuard)
-//app.use(CSRFGuard)
+app.use(CSRFGuard)
 //app.use(preventXss)
 app.use(victimRouter)
 app.use(routerUsers)
