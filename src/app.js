@@ -18,7 +18,7 @@ import victimRouter from './routes/victim.js'
 dotenv.config()
 
 const app = express()
-//app.use(cors())
+app.use(cors())
 const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -35,7 +35,7 @@ app.get('/healthz', (req, res) => {
 })
 app.use(createSession())
 app.use(pictureUploadGuard)
-app.use(CSRFGuard)
+//app.use(CSRFGuard)
 //app.use(preventXss)
 app.use(victimRouter)
 app.use(routerUsers)

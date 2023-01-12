@@ -16,7 +16,7 @@ function createSession() {
                 60 *
                 24 *
                 7 /*1000mil * 60 seconds * 60 minutes * 24 hours * 7 days*/,
-            sameSite: 'Strict',
+            //sameSite: 'Strict',
             //secure: process.env.NODE_ENV === 'production',
         },
         store: MongoStore.create({
