@@ -107,18 +107,6 @@ routerUsers.get('/api/users/:id', (req, res) => {
         .then((result) => res.send({ user: result }))
 })
 
-routerUsers.put('/api/users/notifications', (req, res) => {
-    userService
-        .deleteNotification(req.body.roomId, req.body.type, req.session.userId)
-        .then((result) => res.send(result))
-})
-
-routerUsers.post('/api/users/notifications', (req, res) => {
-    userService
-        .saveNotification(req.body.roomId, req.body.type, req.body.receiverId)
-        .then((result) => res.send(result))
-})
-
 routerUsers.get('/api/csrf-token', async (req, res) => {
     const token = await getCsrfToken(req.session.userId)
     res.json({ csrfToken: token })
