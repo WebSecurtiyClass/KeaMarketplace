@@ -11,7 +11,6 @@ import {
 } from '../services/postService.js'
 import { userRoleMapper } from '../util/typeMapper.js'
 import { deleteFile } from '../services/picture-service.js'
-import multer from 'multer'
 
 const routerPosts = express.Router()
 
@@ -46,6 +45,7 @@ routerPosts.all('/api/post/*', (req, res, next) => {
     }
 })
 
+
 routerPosts.get('/api/post/me/:id', async (req, res) => {
     const post = await getPostById(
         req.params.id,
@@ -68,6 +68,10 @@ routerPosts.get('/api/post/:id', (req, res) => {
 routerPosts.post('/api/post', (req, res) => {
     try {
         console.log('api/post: ', req.body)
+				if(!req.session.userId){
+					res.redirect('/error')
+					return;
+				}
         createPost(req.session.userId, req.body).then(() => {
             //TODO: handle response
             //res.send(post) //maybe should return a json object and the redirect will happen from the public folder
@@ -102,13 +106,9 @@ routerPosts.delete('/api/post/:id', async (req, res) => {
 })
 
 routerPosts.use((err, req, res, _next) => {
-    if (err instanceof multer.MulterError) {
+    if (err) {
         // A Multer error occurred when handling the file upload
         return res.redirect('/error')
-    } else {
-        // Handle other errors
-        return res.redirect('/error')
-        //next(err);
     }
 })
 

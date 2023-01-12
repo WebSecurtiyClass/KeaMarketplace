@@ -1,13 +1,25 @@
 import crypto from 'crypto-js';
 import { deleteFile } from '../services/picture-service.js';
 
+const getTimestampSeconds = () => {
+	return Math.floor(Date.now() / 1000);
+}
+const checkTimestamp = (time) => {
+	console.log("checking timestamp: ", (getTimestampSeconds() - time));
+	return (getTimestampSeconds() - time) < 900; // 900 = 15 minutes
+}
+
 export const getCsrfToken = (userId) => {
-	const token = crypto.AES.encrypt(userId, process.env.CSRF_SECRET).toString();
+	const timestampSeconds = getTimestampSeconds();
+	const tokenObj = JSON.stringify({userId: userId, timestampSeconds: timestampSeconds});
+	console.log("tokenObj before encrypting: ", tokenObj);
+	const token = crypto.AES.encrypt(tokenObj, process.env.CSRF_SECRET).toString();
 	return token;
 }
 
 const decryptToken = (token) => {
 	const decrypted = crypto.AES.decrypt(token, process.env.CSRF_SECRET).toString(crypto.enc.Utf8);
+	console.log("decrypted: ", decrypted);
 	return decrypted;
 }
 
@@ -17,10 +29,13 @@ const compareString = (a, b) => {
 	return a === b;
 }
 
+
 const checkCSRFToken = (token, userId) => {
-	const csrfUserId = decryptToken(token);
-	const sameSame = compareString(userId, csrfUserId);
-	return sameSame;
+	const tokenObjString = decryptToken(token);
+	const tokenObj = JSON.parse(tokenObjString);
+	const validTimestamp = checkTimestamp(tokenObj.timestampSeconds);
+	const validUserId = compareString(userId, tokenObj.userId);
+	return validUserId && validTimestamp;
 }
 
 // Our location is our domain, running locally, it would be "http://localhost:PORT"
@@ -43,8 +58,11 @@ export const CSRFGuard = async (req, res, next) => {
 	try {
 		if ((req.method === 'POST' || req.method === 'PUT') && req.session.userId) {
 			// Last minute changes, Chrome does not send referer and origin on POST and PUT requests.
-			// const origin = req.headers.origin;
-			// const referer = req.headers.referer;
+			// console.log("req.headers: ", req.headers);
+			const origin = req.headers.origin;
+			const referer = req.headers.referer;
+			console.log("req.session: ", req.session);
+			console.log("origin: ", origin, " referer: ", referer);
 			// if(!allowedLocations.includes(origin) || !allowedLocations.includes(referer)){
 			// 	throw new Error("Invalid origin: " + origin + ", or invalid referer: " + referer);
 			// }
